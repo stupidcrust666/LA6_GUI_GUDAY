@@ -50,9 +50,38 @@ public class SimpleCalculator {
                 lblResult.setText("Invalid input");
             }
         });
+
+        applyTheme(mainPanel);
+    }
+
+    private void applyTheme(java.awt.Container root) {
+        java.awt.Color lavender = new java.awt.Color(230, 230, 250);
+        root.setBackground(lavender);
+        for (java.awt.Component c : root.getComponents()) {
+            if (c instanceof JCheckBox || c instanceof JRadioButton) {
+                ((AbstractButton) c).setOpaque(false);
+            }
+            if (c instanceof java.awt.Container) {
+                applyTheme((java.awt.Container) c);
+            }
+        }
+    }
+
+    private static void setGlobalFont() {
+        java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof javax.swing.plaf.FontUIResource) {
+                java.awt.Font f = (java.awt.Font) value;
+                UIManager.put(key, new javax.swing.plaf.FontUIResource(
+                        "Comic Sans MS", f.getStyle(), Math.max(14, f.getSize())));
+            }
+        }
     }
 
     public static void main(String[] args) {
+        setGlobalFont();
         JFrame frame = new JFrame("Simple Calculator");
         frame.setContentPane(new SimpleCalculator().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

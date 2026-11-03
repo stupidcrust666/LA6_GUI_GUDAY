@@ -59,6 +59,21 @@ public class FoodOrderingSystem {
             JOptionPane.showMessageDialog(null,
                     "The total price is Php " + String.format("%.2f", total));
         });
+
+        applyTheme(mainPanel);
+    }
+
+    private void applyTheme(java.awt.Container root) {
+        java.awt.Color lavender = new java.awt.Color(230, 230, 250);
+        root.setBackground(lavender);
+        for (java.awt.Component c : root.getComponents()) {
+            if (c instanceof JCheckBox || c instanceof JRadioButton) {
+                ((AbstractButton) c).setOpaque(false);
+            }
+            if (c instanceof java.awt.Container) {
+                applyTheme((java.awt.Container) c);
+            }
+        }
     }
 
     public static void main(String[] args) {
